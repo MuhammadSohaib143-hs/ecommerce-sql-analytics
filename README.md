@@ -58,6 +58,8 @@ ecommerce-sql-analytics/
 │   └── ecommerece_sql_analytics.sql
 │
 ├── results/
+|   | └── BASIC E-COMMERCE PERFORMANCE ANALYSIS
+|   └──     
 │
 ├── screenshots/
 │
