@@ -59,7 +59,7 @@ ecommerce-sql-analytics/
 │
 ├── results/
 |   | └── BASIC E-COMMERCE PERFORMANCE ANALYSIS
-|   └──     
+|   |_____ SALES AND REVENUE ANALYSIS
 │
 ├── screenshots/
 │
