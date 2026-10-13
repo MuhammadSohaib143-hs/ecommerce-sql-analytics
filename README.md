@@ -49,6 +49,8 @@ Nine CSV files are loaded into the `ecommerce_analytics` MySQL database:
 ## 5. Project Structure
 
 ```text
+## Project Structure
+
 ecommerce-sql-analytics/
 │
 ├── python/
@@ -58,20 +60,33 @@ ecommerce-sql-analytics/
 │   └── ecommerece_sql_analytics.sql
 │
 ├── results/
-|   | └── BASIC E-COMMERCE PERFORMANCE ANALYSIS
-|   |_____ SALES AND REVENUE ANALYSIS
-│
-├── screenshots/
+│   ├── BASIC E-COMMERCE PERFORMANCE ANALYSIS/
+│   │   ├── average_order_value.csv
+│   │   ├── total_customers.csv
+│   │   ├── total_products.csv
+│   │   ├── total_revenue.csv
+│   │   └── total_sellers.csv
+│   │
+│   └── SALES AND REVENUE ANALYSIS/
+│       ├── Average Delivery Time by Month.csv
+│       ├── Late Delivery Performance by Customer State.csv
+│       ├── Monthly Order Volume and Average Order Value.csv
+│       ├── Monthly Revenue Trend.csv
+│       ├── On-Time vs. Late Delivery Performance.csv
+│       ├── One-Time vs Repeat Customers.csv
+│       ├── Revenue by Customer State.csv
+│       ├── Revenue by Payment Type.csv
+│       ├── Revenue by Product Category.csv
+│       ├── Top 10 Product Categories by Order Volume.csv
+│       └── Top 10 Sellers by Item Revenue.csv
 │
 └── README.md
-```
 
 - **python/** — Python notebook for CSV loading and MySQL connectivity.
-- **sql/** — SQL queries used to analyze business performance.
-- **results/** — Query outputs and analysis results.
-- **screenshots/** — Screenshots documenting query execution and findings.
-- **README.md** — Project documentation and progress tracking.
-
+- **sql/** — SQL queries used for business analysis.
+- **results/** — CSV outputs from completed analyses, organized by analysis category.
+- **README.md** — Project overview, business questions, workflow, and documented findings.
+```
 ## 6. Data Analytics Workflow
 
 1. Download the Olist dataset from Kaggle.
