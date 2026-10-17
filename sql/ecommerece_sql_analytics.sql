@@ -551,3 +551,98 @@ GROUP BY COALESCE(
 ORDER BY total_revenue DESC
 
 LIMIT 10;
+
+
+-- Q15: Revenue by Order Status
+
+SELECT
+    o.order_status,
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    ROUND(
+        SUM(oi.price),
+        2
+    ) AS total_item_revenue
+FROM orders AS o
+JOIN order_items AS oi
+    ON o.order_id = oi.order_id
+GROUP BY o.order_status
+ORDER BY total_item_revenue DESC;
+
+
+-- Q16: Customer Review Score Analysis
+
+SELECT
+    r.review_score,
+    COUNT(*) AS total_reviews,
+
+    ROUND(
+        100.0 * COUNT(*) / (
+            SELECT COUNT(*)
+            FROM order_reviews
+            WHERE review_score IS NOT NULL
+        ),
+        2
+    ) AS review_percentage
+
+FROM order_reviews AS r
+
+WHERE r.review_score IS NOT NULL
+
+GROUP BY r.review_score
+
+ORDER BY r.review_score DESC;
+
+
+-- Q17: Monthly Revenue Growth Rate
+
+WITH monthly_revenue AS (
+    SELECT
+        DATE_FORMAT(o.order_purchase_timestamp, '%Y-%m') AS order_month,
+        ROUND(SUM(oi.price), 2) AS total_revenue
+    FROM orders AS o
+    JOIN order_items AS oi
+        ON o.order_id = oi.order_id
+    WHERE o.order_status = 'delivered'
+    GROUP BY DATE_FORMAT(o.order_purchase_timestamp, '%Y-%m')
+),
+
+revenue_comparison AS (
+    SELECT
+        order_month,
+        total_revenue,
+        LAG(total_revenue) OVER (
+            ORDER BY order_month
+        ) AS previous_month_revenue
+    FROM monthly_revenue
+)
+
+SELECT
+    order_month,
+    total_revenue,
+    previous_month_revenue,
+    ROUND(
+        100.0 * (total_revenue - previous_month_revenue)
+        / NULLIF(previous_month_revenue, 0),
+        2
+    ) AS revenue_growth_percentage
+FROM revenue_comparison
+ORDER BY order_month;
+
+-- Q18: Average Order Value by Customer State
+
+SELECT
+    c.customer_state,
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    ROUND(
+        SUM(oi.price) / COUNT(DISTINCT o.order_id),
+        2
+    ) AS average_order_value
+FROM customers AS c
+JOIN orders AS o
+    ON c.customer_id = o.customer_id
+JOIN order_items AS oi
+    ON o.order_id = oi.order_id
+WHERE o.order_status = 'delivered'
+GROUP BY c.customer_state
+HAVING COUNT(DISTINCT o.order_id) >= 100
+ORDER BY average_order_value DESC;

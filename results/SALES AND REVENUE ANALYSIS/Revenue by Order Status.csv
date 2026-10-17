@@ -1,0 +1,8 @@
+order_status,total_orders,total_item_revenue
+delivered,96478,13221498.11
+shipped,1106,150727.44
+canceled,461,95235.27
+invoiced,312,61526.37
+processing,301,60439.22
+unavailable,6,2007.69
+approved,2,209.60
