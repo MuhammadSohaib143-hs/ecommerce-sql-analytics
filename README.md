@@ -2,26 +2,30 @@
 
 ## Project Overview
 
-This project analyzes the Brazilian E-Commerce Public Dataset by Olist using MySQL to identify business trends, evaluate sales performance, and investigate customer behavior and delivery operations.
+This project analyzes the Brazilian E-Commerce Public Dataset by Olist using MySQL 8.0 to evaluate sales performance, revenue trends, customer purchasing behavior, seller performance, delivery operations, and customer satisfaction.
 
-The project follows a practical data analytics workflow: loading raw CSV files into MySQL, writing SQL queries to answer business questions, and exporting query results as CSV files for reporting and further analysis.
+The project follows an end-to-end data analytics workflow: loading raw CSV datasets into MySQL, developing SQL queries to answer business questions, analyzing query results, and exporting outputs as CSV files for reporting and further analysis.
+
+The primary objective is to transform raw e-commerce transactions into meaningful business metrics that support data-driven decision-making.
 
 ## Business Objectives
 
-- Measure overall e-commerce performance.
-- Analyze monthly revenue and order trends.
+- Measure overall e-commerce performance using key performance indicators (KPIs).
+- Analyze monthly revenue trends and revenue growth.
 - Identify high-performing product categories and sellers.
-- Understand payment methods and customer purchasing patterns.
-- Evaluate delivery times and late-delivery performance.
-- Analyze customer review scores to understand customer experience.
+- Compare payment methods and customer purchasing behavior.
+- Evaluate item revenue, order volume, and average order value.
+- Measure delivery times and investigate late-delivery performance.
+- Analyze customer review scores to understand customer satisfaction.
+- Translate analytical findings into practical business insights.
 
 ## Dataset
 
 **Source:** [Brazilian E-Commerce Public Dataset by Olist — Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-The dataset contains information about orders, customers, sellers, products, payments, reviews, and geographic locations.
+The dataset contains transactional and operational information about orders, customers, sellers, products, payments, reviews, and geographic locations.
 
-Nine CSV datasets were loaded into MySQL:
+Nine CSV datasets were loaded into the MySQL database:
 
 1. `customers`
 2. `geolocation`
@@ -33,35 +37,37 @@ Nine CSV datasets were loaded into MySQL:
 8. `order_payments`
 9. `order_reviews`
 
+**Database:** `ecommerce_analytics`
+
 ## Tools and Technologies
 
-- **MySQL 8.0** — SQL querying and business analysis
-- **Python** — data loading and database connection
-- **Pandas** — CSV data handling
-- **SQLAlchemy** — Python-to-MySQL connection
-- **Jupyter Notebook** — data-loading workflow
+- **MySQL 8.0** — SQL queries, aggregations, joins, and business analysis
+- **Python** — database connection and data loading
+- **Pandas** — CSV processing and data handling
+- **SQLAlchemy** — Python-to-MySQL integration
+- **Jupyter Notebook** — database loading workflow
 - **Git and GitHub** — version control and project hosting
-- **CSV** — exported query results
+- **CSV** — exporting SQL query results
 
 ## Initial Performance Metrics
 
-| Metric | Result |
-|---|---:|
-| Total Orders | 99,441 |
-| Total Revenue | 16,008,872.12 |
-| Average Order Value | 160.99 |
-| Total Customers | 99,441 |
-| Total Products | 32,951 |
-| Total Sellers | 3,095 |
+| Metric                        |        Result |
+| ----------------------------- | ------------: |
+| Total Orders                  |        99,441 |
+| Total Revenue (Payment Value) | 16,008,872.12 |
+| Average Order Value           |        160.99 |
+| Total Customers               |        99,441 |
+| Total Products                |        32,951 |
+| Total Sellers                 |         3,095 |
 
-*Note: Revenue and average order value depend on the calculation used in each query. Payment values and item prices represent different measures and should not be treated as interchangeable.*
+**Metric definition:** These are the initial project metrics. Revenue and average order value depend on the underlying calculation and aggregation level. Payment values, item prices, and delivered-order item revenue represent different measures and must not be treated as interchangeable.
 
 ## SQL Business Questions
 
 ### 1. Basic E-commerce Performance Analysis
 
 - Calculate total orders.
-- Calculate total revenue.
+- Calculate total revenue using payment values.
 - Calculate average order value.
 - Count total customers.
 - Count total products.
@@ -69,61 +75,89 @@ Nine CSV datasets were loaded into MySQL:
 
 ### 2. Sales and Revenue Analysis
 
-**Q1. Monthly Revenue Analysis**  
-Analyze revenue generated in each month using payment values.
+**Q1. Monthly Revenue Analysis**
 
-**Q2. Revenue by Product Category**  
-Identify product categories generating the most revenue for delivered orders.
+Analyze monthly revenue using order payment values to identify changes in sales activity over time.
 
-**Q3. Revenue by Payment Type**  
-Compare revenue across payment methods.
+**Q2. Revenue by Product Category**
 
-**Q4. Revenue by Customer State**  
-Identify the customer states contributing the most revenue.
+Identify product categories generating the highest revenue from delivered orders.
 
-**Q5. Top 10 Sellers by Item Revenue**  
-Rank sellers according to revenue generated from their sold items.
+**Q3. Revenue by Payment Type**
 
-**Q6. Monthly Order Volume and Average Order Value**  
-Compare monthly order volume, item revenue, and average order value.
+Compare payment methods by transaction volume and payment value.
 
-**Q7. One-Time vs. Repeat Customers**  
-Measure how many customers placed one order compared with customers who placed multiple orders.
+**Q4. Revenue by Customer State**
 
-**Q8. Top 10 Product Categories by Order Volume**  
-Identify categories with the highest order-item volume.
+Identify customer states contributing the most revenue.
 
-**Q9. Average Item Revenue per Order by Category**  
+**Q5. Top 10 Sellers by Item Revenue**
+
+Rank sellers according to the item-price revenue generated by their sold products.
+
+**Q6. Monthly Order Volume and Average Order Value**
+
+Compare monthly order volume, item revenue, and average order value to understand changes in purchasing activity.
+
+**Q7. One-Time vs. Repeat Customers**
+
+Segment customers according to the number of orders they placed and compare one-time purchasing with repeat purchasing.
+
+**Q8. Top 10 Product Categories by Order Volume**
+
+Identify product categories with the highest order-item volume.
+
+**Q9. Average Item Revenue per Order by Category**
+
 Compare average item revenue per order across product categories.
 
 ### 3. Delivery Performance Analysis
 
-**Q10. Average Delivery Time by Month**  
-Analyze the average delivery duration over time.
+**Q10. Average Delivery Time by Month**
 
-**Q11. On-Time vs. Late Delivery Performance**  
-Measure delivered orders against their estimated delivery dates.
+Calculate average delivery duration and examine how delivery times change over time.
 
-**Q12. Late Delivery Performance by Customer State**  
-Compare late-delivery rates and average delay across customer states, restricting the analysis to states with at least 1,000 eligible delivered orders.
+**Q11. On-Time vs. Late Delivery Performance**
 
-**Q13. Monthly Late-Delivery Rate**  
-Track how late-delivery performance changes from month to month.
+Compare delivered orders against their estimated delivery dates and measure late-delivery frequency and average delay.
+
+**Q12. Late Delivery Performance by Customer State**
+
+Compare late-delivery rates and average delays across customer states, including only states with at least 1,000 eligible delivered orders.
+
+**Q13. Monthly Late-Delivery Rate**
+
+Track monthly late-delivery rates to identify periods with comparatively weaker delivery performance.
 
 ### 4. Additional Revenue Analysis
 
-**Q14. Top Product Categories by Item Revenue**  
+**Q14. Top Product Categories by Item Revenue**
+
 Rank product categories by item-price revenue and compare their order and item volumes.
 
-**Q15. Monthly Revenue Trend for Delivered Orders**  
-Analyze monthly item-price revenue for delivered orders, independently of the payment-value analysis.
+**Q15. Monthly Revenue Trend for Delivered Orders**
+
+Analyze monthly item-price revenue by order status, distinguishing delivered-order item revenue from other order-status groups.
+
+This analysis uses item prices rather than payment values. Item-price totals should not be interpreted as collected revenue, profit, or financial loss.
 
 ### 5. Customer Review Analysis
 
-**Q16. Customer Review Score Distribution**  
-Calculate the number and percentage of reviews for each review score to understand the distribution of customer feedback.
+**Q16. Customer Review Score Analysis**
 
-*Q16 is planned until the query has been executed and its output verified.*
+Analyze the distribution of customer review scores by calculating review counts and percentages for each score.
+
+This analysis helps identify the most common feedback ratings and provides an initial view of customer satisfaction.
+
+### 6. Revenue Growth Analysis
+
+**Q17. Monthly Revenue Growth Rate**
+
+Use Common Table Expressions (CTEs) and the `LAG()` window function to compare monthly revenue with the previous available month and calculate the percentage growth or decline.
+
+The analysis demonstrates how SQL window functions can support time-series comparisons and revenue trend reporting.
+
+**Important interpretation:** The dataset contains months with no recorded orders in the selected results. If those months are omitted, `LAG()` compares against the previous available month, which may not be the immediately preceding calendar month. Therefore, the growth calculation must be interpreted according to the months actually included in the query.
 
 ## Project Structure
 
@@ -144,57 +178,60 @@ ecommerce-sql-analytics/
 │   │   ├── total_revenue.csv
 │   │   └── total_sellers.csv
 │   │
-│   └── SALES AND REVENUE ANALYSIS/
-│       ├── Average Delivery Time by Month.csv
-│       ├── Late Delivery Performance by Customer State.csv
-│       ├── Monthly Order Volume and Average Order Value.csv
-│       ├── Monthly Revenue Trend.csv
-│       ├── On-Time vs. Late Delivery Performance.csv
-│       ├── One-Time vs Repeat Customers.csv
-│       ├── Revenue by Customer State.csv
-│       ├── Revenue by Payment Type.csv
-│       ├── Revenue by Product Category.csv
-│       ├── Top 10 Product Categories by Order Volume.csv
-│       └── Top 10 Sellers by Item Revenue.csv
+│   ├── SALES AND REVENUE ANALYSIS/
+│   │   ├── Average Delivery Time by Month.csv
+│   │   ├── Late Delivery Performance by Customer State.csv
+│   │   ├── Monthly Order Volume and Average Order Value.csv
+│   │   ├── Monthly Revenue Trend.csv
+│   │   ├── Monthly Revenue Growth Rate.csv
+│   │   ├── On-Time vs. Late Delivery Performance.csv
+│   │   ├── One-Time vs Repeat Customers.csv
+│   │   ├── Revenue by Customer State.csv
+│   │   ├── Revenue by Payment Type.csv
+│   │   ├── Revenue by Product Category.csv
+│   │   ├── Top 10 Product Categories by Order Volume.csv
+│   │   └── Top 10 Sellers by Item Revenue.csv
+│   │
+│   └── CUSTOMER REVIEW ANALYSIS/
+│       └── Customer Review Score Analysis.csv
 │
 └── README.md
 ```
+
+*The results directory above documents the intended organization. Confirm the exact CSV filenames and folders against the current repository before committing this structure to GitHub.*
 
 ## Business Value
 
 This analysis can help e-commerce stakeholders:
 
-- **Improve sales planning:** Identify monthly revenue trends and high-performing categories.
-- **Optimize product strategy:** Understand which categories contribute the most revenue and order volume.
-- **Evaluate seller performance:** Identify leading sellers and compare their item revenue.
-- **Understand customers:** Measure repeat purchasing and examine review-score distribution.
-- **Improve logistics:** Identify locations and periods associated with higher late-delivery rates.
-- **Support decisions with data:** Convert raw transactional records into measurable business indicators.
+- **Improve sales planning:** Use monthly revenue trends and growth comparisons to monitor business performance.
+- **Optimize product strategy:** Identify categories with high revenue and order-item volume.
+- **Evaluate seller performance:** Compare sellers based on item revenue.
+- **Understand customer behavior:** Measure repeat purchasing and examine purchasing patterns.
+- **Monitor customer satisfaction:** Analyze review-score distributions to understand customer feedback.
+- **Improve logistics:** Identify states and periods associated with higher late-delivery rates.
+- **Support operational decisions:** Convert transactional data into measurable performance indicators.
 
-These findings describe historical patterns in the dataset. They can inform business decisions but do not, by themselves, establish causal relationships.
+The results describe historical patterns in the dataset. They can support business decisions but do not independently establish causation, profitability, or future performance.
 
 ## Skills Demonstrated
 
-- SQL aggregations and grouping
+- SQL aggregations and `GROUP BY`
 - Filtering and conditional logic
 - Multi-table joins
 - Date and time analysis
-- Common table expressions and window functions
-- Ranking and customer segmentation
+- Common Table Expressions (CTEs)
+- Window functions, including `LAG()` and `ROW_NUMBER()`
 - Revenue and KPI calculations
-- Business-oriented data analysis
+- Ranking and customer segmentation
+- Percentage calculations and month-over-month comparisons
+- Delivery performance analysis
+- Customer review analysis
 - Python database integration
+- Pandas-based CSV loading
 - Exporting query results for reporting
 - Git and GitHub version control
-
-## Current Project Status
-
-- [x] Load nine CSV datasets into MySQL.
-- [x] Complete initial e-commerce performance metrics.
-- [x] Develop SQL analyses for sales, customers, categories, sellers, and delivery performance.
-- [x] Export multiple query results to CSV files.
-- [ ] Execute and verify the customer review score distribution query.
-- [ ] Complete the final documentation with verified findings and business recommendations.
+- Translating business questions into SQL analyses
 
 ## Author
 
@@ -202,6 +239,8 @@ These findings describe historical patterns in the dataset. They can inform busi
 
 GitHub: [MuhammadSohaib143-hs](https://github.com/MuhammadSohaib143-hs)
 
+Repository: [ecommerce-sql-analytics](https://github.com/MuhammadSohaib143-hs/ecommerce-sql-analytics)
+
 ## Disclaimer
 
-This project is for educational and portfolio purposes. The analysis is based on the publicly available Olist dataset and reflects the data and definitions used in the SQL queries.
+This project is for educational and portfolio purposes. It uses the publicly available Brazilian E-Commerce Public Dataset by Olist. Results depend on the dataset, SQL query definitions, selected order statuses, and aggregation methods. The analysis should not be interpreted as a complete financial audit or as evidence of causal relationships.
